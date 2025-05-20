@@ -1,0 +1,49 @@
+﻿@model List<CinemaAppAspNetCoreMVC.Domain.Models.Movie>
+
+@{
+    ViewData["Title"] = "Список фільмів";
+}
+
+<h1 class="mb-4">Список фільмів</h1>
+
+<form method="get" asp-action="Search" class="mb-3">
+    <input type="text" name="query" placeholder="Пошук фільмів..." class="form-control" />
+    <button type="submit" class="btn btn-primary mt-2">Пошук</button>
+</form>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Додати фільм</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Назва</th>
+            <th>Режисер</th>
+            <th>Жанр</th>
+            <th>Сеанси</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model)
+        {
+            <tr>
+                <td>@movie.Title</td>
+                <td>@movie.Director</td>
+                <td>@movie.Genre</td>
+                <td>
+                    @foreach (var session in movie.Sessions)
+                    {
+                        <div>@session.DateTime.ToString("g")</div>
+                    }
+                </td>
+                <td>
+                    <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@movie.Id">Деталі</a>
+                    <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@movie.Id">Редагувати</a>
+                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@movie.Id">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

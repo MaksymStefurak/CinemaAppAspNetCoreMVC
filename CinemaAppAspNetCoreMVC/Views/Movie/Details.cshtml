@@ -1,0 +1,31 @@
+﻿@model CinemaAppAspNetCoreMVC.Domain.Models.Movie
+
+@{
+    ViewData["Title"] = "Деталі фільму";
+}
+
+<h1>Деталі фільму</h1>
+
+<div class="mb-3">
+    <strong>Назва:</strong> @Model.Title
+</div>
+<div class="mb-3">
+    <strong>Режисер:</strong> @Model.Director
+</div>
+<div class="mb-3">
+    <strong>Жанр:</strong> @Model.Genre
+</div>
+<div class="mb-3">
+    <strong>Опис:</strong> @Model.Description
+</div>
+<div class="mb-3">
+    <strong>Сеанси:</strong>
+    <ul>
+        @foreach (var session in Model.Sessions)
+        {
+            <li>@session.DateTime.ToString("g")</li>
+        }
+    </ul>
+</div>
+
+<a class="btn btn-secondary" asp-action="Index">Повернутися</a>
