@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using CinemaAppAspNetCoreMVC.Models;
+using CinemaAppAspNetCoreMVC.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaAppAspNetCoreMVC.Controllers

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CinemaAppAspNetCoreMVC.Service
 {
-    public class MovieService: IMovieService
+    public class MovieService : IMovieService
     {
         private readonly IMovieRepository _movieRepository;
 
@@ -23,9 +23,6 @@ namespace CinemaAppAspNetCoreMVC.Service
         public Task AddMovieAsync(Movie movie) => _movieRepository.AddAsync(movie);
         public Task UpdateMovieAsync(Movie movie) => _movieRepository.UpdateAsync(movie);
         public Task DeleteMovieAsync(int id) => _movieRepository.DeleteAsync(id);
-        public async Task<List<Movie>> SearchMoviesAsync(string query)
-        {
-            return await _movieRepository.SearchAsync(query);
-        }
+        
     }
 }

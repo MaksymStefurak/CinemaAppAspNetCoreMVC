@@ -14,6 +14,5 @@ namespace CinemaAppAspNetCoreMVC.Service.Interfaces
         Task AddMovieAsync(Movie movie);
         Task UpdateMovieAsync(Movie movie);
         Task DeleteMovieAsync(int id);
-        Task<List<Movie>> SearchMoviesAsync(string query);
     }
 }

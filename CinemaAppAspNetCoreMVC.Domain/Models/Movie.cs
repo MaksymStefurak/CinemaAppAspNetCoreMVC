@@ -13,19 +13,19 @@ namespace CinemaAppAspNetCoreMVC.Domain.Models
         public int Id { get; set; }
         [Required]
         [MaxLength(100)]
-        public string? Title { get; set; } 
+        public string? Title { get; set; }
 
         [Required]
         [MaxLength(50)]
-        public string? Director { get; set; } 
+        public string? Director { get; set; }
 
         [Required]
         public Genre Genre { get; set; }
 
         [Required]
         [MaxLength(500)]
-        public string? Description { get; set; } 
+        public string? Description { get; set; }
 
-        public List<Session> Sessions { get; set; } = new List<Session>();
+        public ICollection<Session> Sessions { get; set; } = new List<Session>();
     }
 }

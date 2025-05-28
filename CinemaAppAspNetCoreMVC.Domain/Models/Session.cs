@@ -12,8 +12,9 @@ namespace CinemaAppAspNetCoreMVC.Domain.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        public int MovieId {  get; set; }
+        public int MovieId { get; set; }
 
-        public DateTime DateTime { get; set; }
+        public Movie? Movie { get; set; }
+        public DateTime SessionTime { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CinemaAppAspNetCoreMVC.Domain.Models;
 using CinemaAppAspNetCoreMVC.Service.Interfaces;
+using CinemaAppAspNetCoreMVC.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaAppAspNetCoreMVC.Controllers
@@ -12,6 +13,27 @@ namespace CinemaAppAspNetCoreMVC.Controllers
         {
             _movieService = movieService;
         }
+        //public async Task<IActionResult> Home()
+        //{
+        //    var moviesDomain = await _movieService.GetAllMoviesAsync();
+
+        //    var moviesViewModel = moviesDomain.Select(m => new MainPageController
+        //    {
+        //        Id = m.Id,
+        //        Title = m.Title,
+        //        Director = m.Director,
+        //        Genre = m.Genre,
+        //        Description = m.Description
+        //    }).ToList();
+
+        //    var viewModel = new HomePageViewModel
+        //    {
+        //        Movies = moviesViewModel
+        //    };
+
+        //    return View(viewModel);
+        //}
+
         public async Task<IActionResult> Index()
         {
             var movies = await _movieService.GetAllMoviesAsync();
@@ -46,7 +68,7 @@ namespace CinemaAppAspNetCoreMVC.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var movie = await _movieService.GetMovieByIdAsync(id);
-            if(movie == null) return NotFound();
+            if (movie == null) return NotFound();
             return View(movie);
         }
 
@@ -75,15 +97,6 @@ namespace CinemaAppAspNetCoreMVC.Controllers
         {
             await _movieService.DeleteMovieAsync(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        public async Task<IActionResult> Search(string query)
-        {
-            if (string.IsNullOrWhiteSpace(query))
-                return RedirectToAction("Index");
-
-            var results = await _movieService.SearchMoviesAsync(query);
-            return View("Index", results); // можна показати результати у Index.cshtml
         }
     }
 }

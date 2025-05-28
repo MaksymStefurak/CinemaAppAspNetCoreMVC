@@ -1,4 +1,4 @@
-namespace CinemaAppAspNetCoreMVC.Models
+namespace CinemaAppAspNetCoreMVC.ViewModels
 {
     public class ErrorViewModel
     {

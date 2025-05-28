@@ -13,7 +13,7 @@ namespace CinemaAppAspNetCoreMVC.Data.Repositories
     public class MovieRepository : IMovieRepository
     {
         private readonly CinemaDbContext _context;
-        
+
         public MovieRepository(CinemaDbContext context)
         {
             _context = context;
@@ -24,7 +24,7 @@ namespace CinemaAppAspNetCoreMVC.Data.Repositories
             return await _context.Movies.Include(m => m.Sessions).ToListAsync();
         }
 
-        public async Task<Movie> GetByIdAsync(int id)
+        public async Task<Movie?> GetByIdAsync(int id)
         {
             return await _context.Movies.Include(m => m.Sessions)
                 .FirstAsync(m => m.Id == id);
@@ -45,22 +45,11 @@ namespace CinemaAppAspNetCoreMVC.Data.Repositories
         public async Task DeleteAsync(int id)
         {
             var movie = await GetByIdAsync(id);
-            if(movie != null)
+            if (movie != null)
             {
                 _context.Movies.Remove(movie);
                 await _context.SaveChangesAsync();
             }
-        }
-
-        public async Task<List<Movie>> SearchAsync(string query)
-        {
-            return await _context.Movies
-                .Where(m => m.Title.Contains(query) ||
-                            m.Director.Contains(query) ||
-                            m.Description.Contains(query) ||
-                            m.Genre.ToString().Contains(query))
-                .Include(m => m.Sessions)
-                .ToListAsync();
         }
     }
 }

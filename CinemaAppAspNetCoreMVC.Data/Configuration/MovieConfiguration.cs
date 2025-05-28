@@ -20,8 +20,8 @@ namespace CinemaAppAspNetCoreMVC.Data.Configuration
             builder.Property(m => m.Description).IsRequired().HasMaxLength(500);
 
             builder.HasMany(m=>m.Sessions)
-                .WithOne()
-                .HasForeignKey(m=>m.MovieId)
+                .WithOne(s => s.Movie)
+                .HasForeignKey(s=>s.MovieId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

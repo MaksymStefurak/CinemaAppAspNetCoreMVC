@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaAppAspNetCoreMVC.Data.Migrations
 {
     [DbContext(typeof(CinemaDbContext))]
-    [Migration("20250520004521_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250528025932_SessionUpDate")]
+    partial class SessionUpDate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,11 +64,11 @@ namespace CinemaAppAspNetCoreMVC.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("SessionTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -79,11 +79,13 @@ namespace CinemaAppAspNetCoreMVC.Data.Migrations
 
             modelBuilder.Entity("CinemaAppAspNetCoreMVC.Domain.Models.Session", b =>
                 {
-                    b.HasOne("CinemaAppAspNetCoreMVC.Domain.Models.Movie", null)
+                    b.HasOne("CinemaAppAspNetCoreMVC.Domain.Models.Movie", "Movie")
                         .WithMany("Sessions")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("CinemaAppAspNetCoreMVC.Domain.Models.Movie", b =>
