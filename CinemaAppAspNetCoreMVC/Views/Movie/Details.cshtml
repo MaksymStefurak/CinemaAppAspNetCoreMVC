@@ -4,28 +4,20 @@
     ViewData["Title"] = "Деталі фільму";
 }
 
-<h1>Деталі фільму</h1>
+<h2 class="mb-4">📋 Деталі фільму</h2>
 
-<div class="mb-3">
-    <strong>Назва:</strong> @Model.Title
-</div>
-<div class="mb-3">
-    <strong>Режисер:</strong> @Model.Director
-</div>
-<div class="mb-3">
-    <strong>Жанр:</strong> @Model.Genre
-</div>
-<div class="mb-3">
-    <strong>Опис:</strong> @Model.Description
-</div>
-<div class="mb-3">
-    <strong>Сеанси:</strong>
+<div class="p-4 border rounded shadow-sm bg-light">
+    <p><strong>Назва:</strong> @Model.Title</p>
+    <p><strong>Режисер:</strong> @Model.Director</p>
+    <p><strong>Жанр:</strong> @Model.Genre</p>
+    <p><strong>Опис:</strong> @Model.Description</p>
+    <p><strong>Сеанси:</strong></p>
     <ul>
         @foreach (var session in Model.Sessions)
         {
             <li>@session.SessionTime.ToString("g")</li>
         }
     </ul>
-</div>
 
-<a class="btn btn-secondary" asp-action="Index">Повернутися</a>
+    <a asp-action="Index" class="btn btn-secondary mt-3">↩ Назад до списку</a>
+</div>

@@ -1,20 +1,31 @@
 ﻿@model CinemaAppAspNetCoreMVC.ViewModels.MainPageViewModel
 
-<h2>Фільми в кінотеатрі</h2>
+@{
+    ViewData["Title"] = "Головна сторінка";
+}
 
-<div class="row">
-@foreach (var movie in Model.Movies)
-{
-    <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">@movie.Title</h5>
-                <p class="card-text">@movie.Description</p>
-                <p><strong>Жанр:</strong> @movie.Genre</p>
-                <p><strong>Режисер:</strong> @movie.Director</p>
-                <a class="btn btn-primary" asp-controller="Session" asp-action="Book" asp-route-movieId="@movie.Id">Забронювати сеанс</a>
+<h2 class="mb-4 text-center">🎬 Фільми, що зараз у кінотеатрі</h2>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var movie in Model.Movies)
+    {
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">@movie.Title</h5>
+                    <p class="card-text text-muted mb-2">@movie.Description</p>
+                    <p class="mb-1"><strong>🎭 Жанр:</strong> @movie.Genre</p>
+                    <p class="mb-3"><strong>🎬 Режисер:</strong> @movie.Director</p>
+                    <div class="mt-auto">
+                        <a class="btn btn-outline-primary w-100"
+                           asp-controller="Session"
+                           asp-action="Book"
+                           asp-route-movieId="@movie.Id">
+                            🎟 Забронювати сеанс
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-}
+    }
 </div>

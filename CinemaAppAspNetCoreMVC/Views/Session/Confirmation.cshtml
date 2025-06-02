@@ -2,5 +2,9 @@
     ViewData["Title"] = "Підтвердження бронювання";
 }
 
-<h2>Ваше бронювання успішне!</h2>
-<a asp-controller="Movie" asp-action="Index" class="btn btn-primary">Повернутися до списку фільмів</a>
+<div class="alert alert-success mt-4" role="alert">
+    <h4 class="alert-heading">✅ Ваше бронювання успішне!</h4>
+    <p>Дякуємо за бронювання. Гарного перегляду!</p>
+    <hr />
+    <a asp-controller="Movie" asp-action="Index" class="btn btn-primary">⬅️ Повернутися до списку фільмів</a>
+</div>

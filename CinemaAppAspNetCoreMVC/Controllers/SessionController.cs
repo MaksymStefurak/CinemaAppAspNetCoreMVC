@@ -31,14 +31,6 @@ namespace CinemaAppAspNetCoreMVC.Controllers
 
             var sessions = await _sessionService.GetSessionsByMovieIdAsync(movie.Id);
 
-            if (!sessions.Any())
-            {
-                sessions = new List<Session>
-        {
-            new Session { Id = 1, MovieId = movie.Id, SessionTime = DateTime.Now.AddHours(1) },
-            new Session { Id = 2, MovieId = movie.Id, SessionTime = DateTime.Now.AddHours(3) }
-        };
-            }
             var model = new BookSessionViewModel
             {
                 Movie = movie,
@@ -48,20 +40,6 @@ namespace CinemaAppAspNetCoreMVC.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> MyBookings()
-        {
-            var bookings = await _bookingService.GetAllBookingsAsync();
-
-            var model = bookings.Select(b => new MyBookingViewModel
-            {
-                MovieTitle = b.Session.Movie.Title,
-                SessionTime = b.Session.SessionTime,
-                BookingDate = b.BookingDate
-            }).ToList();
-
-            return View(model);
-        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Book(BookSessionViewModel model)
@@ -83,6 +61,34 @@ namespace CinemaAppAspNetCoreMVC.Controllers
 
             return RedirectToAction("Confirmation");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> MyBookings()
+        {
+            var bookings = await _bookingService.GetAllBookingsAsync();
+
+            var model = bookings.Select(b => new MyBookingViewModel
+            {
+                BookingId = b.Id,
+                MovieTitle = b.Session.Movie.Title,
+                SessionTime = b.Session.SessionTime,
+                BookingDate = b.BookingDate
+            }).ToList();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> DeleteBooking(int bookingId)
+        {
+            var booking = await _bookingService.GetBookingByIdAsync(bookingId);
+            if (booking == null) return NotFound();
+
+            await _bookingService.DeleteBookingAsync(bookingId);
+            return RedirectToAction("MyBookings");
+        }     
     }
 }
 

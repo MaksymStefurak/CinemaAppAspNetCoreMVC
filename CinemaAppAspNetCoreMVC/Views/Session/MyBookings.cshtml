@@ -1,19 +1,23 @@
 ﻿@model IEnumerable<CinemaAppAspNetCoreMVC.ViewModels.MyBookingViewModel>
+@{
+    ViewData["Title"] = "Мої бронювання";
+}
 
-<h1>Всі заброньовані сеанси</h1>
+<h2 class="mb-4">🎫 Ваші заброньовані сеанси</h2>
 
 @if (!Model.Any())
 {
-    <p>Немає заброньованих сеансів.</p>
+    <div class="alert alert-info">У вас ще немає заброньованих сеансів.</div>
 }
 else
 {
-    <table class="table">
-        <thead>
+    <table class="table table-hover table-bordered">
+        <thead class="table-light">
             <tr>
-                <th>Фільм</th>
-                <th>Час сеансу</th>
-                <th>Дата бронювання</th>
+                <th>🎬 Фільм</th>
+                <th>🕒 Час сеансу</th>
+                <th>📅 Дата бронювання</th>
+                <th>❌ Дії</th>
             </tr>
         </thead>
         <tbody>
@@ -23,6 +27,13 @@ else
                     <td>@booking.MovieTitle</td>
                     <td>@booking.SessionTime.ToString("g")</td>
                     <td>@booking.BookingDate.ToString("g")</td>
+                    <td>
+                        <form asp-action="DeleteBooking" method="post" onsubmit="return confirm('Ви впевнені, що хочете видалити це бронювання?');">
+                            <input type="hidden" name="bookingId" value="@booking.BookingId" />
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger btn-sm">Видалити</button>
+                        </form>
+                    </td>
                 </tr>
             }
         </tbody>

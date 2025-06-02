@@ -4,31 +4,34 @@
     ViewData["Title"] = "Редагування фільму";
 }
 
-<h1>Редагування фільму</h1>
+<h2 class="mb-4">✏️ Редагування фільму</h2>
 
-<form asp-action="Edit">
+<form asp-action="Edit" class="p-4 border rounded shadow-sm bg-light">
     <input type="hidden" asp-for="Id" />
-    <div class="form-group">
-        <label asp-for="Title" class="control-label">Назва</label>
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label">Назва</label>
         <input asp-for="Title" class="form-control" />
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="Director" class="control-label">Режисер</label>
+    <div class="mb-3">
+        <label asp-for="Director" class="form-label">Режисер</label>
         <input asp-for="Director" class="form-control" />
         <span asp-validation-for="Director" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="Genre" class="control-label">Жанр</label>
-        <select asp-for="Genre" class="form-control" asp-items="Html.GetEnumSelectList<CinemaAppAspNetCoreMVC.Domain.Models.Genre>()"></select>
+    <div class="mb-3">
+        <label asp-for="Genre" class="form-label">Жанр</label>
+        <select asp-for="Genre" class="form-select" asp-items="Html.GetEnumSelectList<CinemaAppAspNetCoreMVC.Domain.Models.Genre>()"></select>
         <span asp-validation-for="Genre" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="Description" class="control-label">Опис</label>
-        <textarea asp-for="Description" class="form-control"></textarea>
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Опис</label>
+        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary mt-3">Оновити</button>
-    <a asp-action="Index" class="btn btn-secondary mt-3">Скасувати</a>
+    <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">💾 Оновити</button>
+        <a asp-action="Index" class="btn btn-secondary">↩ Скасувати</a>
+    </div>
 </form>
+ 

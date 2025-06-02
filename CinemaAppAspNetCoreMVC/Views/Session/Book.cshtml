@@ -1,22 +1,26 @@
 ﻿@model CinemaAppAspNetCoreMVC.ViewModels.BookSessionViewModel
+@{
+    ViewData["Title"] = "Бронювання сеансу";
+}
 
-<h1>Бронювання сеансу фільму: @Model.Movie.Title</h1>
+<h2 class="mb-4">🎟 Бронювання сеансу: <strong>@Model.Movie.Title</strong></h2>
 
-<form asp-action="Book" method="post">
-    @Html.AntiForgeryToken()
+<div class="card shadow-sm p-4">
+    <form asp-action="Book" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="MovieId" />
 
-    <input type="hidden" asp-for="MovieId" />
+        <div class="mb-3">
+            <label asp-for="SelectedSessionId" class="form-label">Оберіть сеанс</label>
+            <select asp-for="SelectedSessionId" class="form-select" asp-items="@(new SelectList(Model.Sessions, "Id", "SessionTime"))">
+                <option value="">-- Оберіть сеанс --</option>
+            </select>
+            <span asp-validation-for="SelectedSessionId" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="SelectedSessionId">Оберіть сеанс</label>
-        <select asp-for="SelectedSessionId" class="form-control" asp-items="@(new SelectList(Model.Sessions, "Id", "SessionTime"))">
-            <option value="">-- Оберіть сеанс --</option>
-        </select>
-        <span asp-validation-for="SelectedSessionId" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-success mt-3">Забронювати</button>
-</form>
+        <button type="submit" class="btn btn-success w-100">Підтвердити бронювання</button>
+    </form>
+</div>
 
 @section Scripts {
     @{

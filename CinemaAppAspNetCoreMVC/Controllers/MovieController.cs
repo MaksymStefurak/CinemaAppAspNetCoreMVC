@@ -34,12 +34,21 @@ namespace CinemaAppAspNetCoreMVC.Controllers
         //    return View(viewModel);
         //}
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string query)
         {
-            var movies = await _movieService.GetAllMoviesAsync();
+            List<Movie> movies;
+
+            if (!string.IsNullOrEmpty(query))
+            {
+                movies = await _movieService.SearchMoviesAsync(query);
+            }
+            else
+            {
+                movies = await _movieService.GetAllMoviesAsync();
+            }
+
             return View(movies);
         }
-
         public async Task<IActionResult> Details(int id)
         {
             var movie = await _movieService.GetMovieByIdAsync(id);

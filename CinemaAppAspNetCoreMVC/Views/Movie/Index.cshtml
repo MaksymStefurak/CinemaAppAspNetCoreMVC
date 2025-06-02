@@ -4,46 +4,54 @@
     ViewData["Title"] = "Список фільмів";
 }
 
-<h1 class="mb-4">Список фільмів</h1>
+<h1 class="mb-4 text-center">🎬 Список фільмів</h1>
 
-<form method="get" asp-action="Search" class="mb-3">
-    <input type="text" name="query" placeholder="Пошук фільмів..." class="form-control" />
-    <button type="submit" class="btn btn-primary mt-2">Пошук</button>
-</form>
+<div class="row mb-4">
+    <div class="col-md-8">
+        <form method="get" asp-action="Index" class="input-group">
+            <input type="text" name="query" class="form-control" placeholder="🔍 Пошук фільмів..." value="@Context.Request.Query["query"]" />
+            <button class="btn btn-outline-primary" type="submit">Пошук</button>
+        </form>
+    </div>
+    <div class="col-md-4 text-end">
+        <a class="btn btn-success" asp-action="Create">➕ Додати фільм</a>
+    </div>
+</div>
 
-<p>
-    <a class="btn btn-primary" asp-action="Create">Додати фільм</a>
-</p>
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @foreach (var movie in Model)
+    {
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0 bg-light">
+                <div class="card-body">
+                    <h5 class="card-title">@movie.Title</h5>
+                    <p class="card-text">
+                        <strong>Режисер:</strong> @movie.Director<br />
+                        <strong>Жанр:</strong> @movie.Genre
+                    </p>
+                    <p class="card-text">
+                        <strong>Сеанси:</strong><br />
+                        @if (movie.Sessions.Any())
+                        {
+                            @foreach (var session in movie.Sessions)
+                            {
+                                <span class="badge bg-secondary mb-1">@session.SessionTime.ToString("g")</span>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Назва</th>
-            <th>Режисер</th>
-            <th>Жанр</th>
-            <th>Сеанси</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var movie in Model)
-        {
-            <tr>
-                <td>@movie.Title</td>
-                <td>@movie.Director</td>
-                <td>@movie.Genre</td>
-                <td>
-                    @foreach (var session in movie.Sessions)
-                    {
-                        <div>@session.SessionTime.ToString("g")</div>
-                    }
-                </td>
-                <td>
-                    <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@movie.Id">Деталі</a>
-                    <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@movie.Id">Редагувати</a>
-                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@movie.Id">Видалити</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                                <br />
+                            }
+                        }
+                        else
+                        {
+                            <span class="text-muted">Немає сеансів</span>
+                        }
+                    </p>
+                </div>
+                <div class="card-footer d-flex justify-content-between bg-white border-top-0">
+                    <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@movie.Id">Деталі</a>
+                    <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@movie.Id">Редагувати</a>
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@movie.Id">Видалити</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
