@@ -1,0 +1,25 @@
+﻿@model CinemaAppAspNetCoreMVC.ViewModels.BookSessionViewModel
+
+<h1>Бронювання сеансу фільму: @Model.Movie.Title</h1>
+
+<form asp-action="Book" method="post">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" asp-for="MovieId" />
+
+    <div class="form-group">
+        <label asp-for="SelectedSessionId">Оберіть сеанс</label>
+        <select asp-for="SelectedSessionId" class="form-control" asp-items="@(new SelectList(Model.Sessions, "Id", "SessionTime"))">
+            <option value="">-- Оберіть сеанс --</option>
+        </select>
+        <span asp-validation-for="SelectedSessionId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">Забронювати</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

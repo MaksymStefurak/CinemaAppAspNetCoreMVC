@@ -31,6 +31,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Movie" asp-action="Index">Управління фільмами</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Session" asp-action="MyBookings">Мої сеанси</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -43,5 +46,6 @@
     </div>
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

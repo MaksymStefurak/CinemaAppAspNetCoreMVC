@@ -1,0 +1,30 @@
+﻿@model IEnumerable<CinemaAppAspNetCoreMVC.ViewModels.MyBookingViewModel>
+
+<h1>Всі заброньовані сеанси</h1>
+
+@if (!Model.Any())
+{
+    <p>Немає заброньованих сеансів.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Фільм</th>
+                <th>Час сеансу</th>
+                <th>Дата бронювання</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var booking in Model)
+            {
+                <tr>
+                    <td>@booking.MovieTitle</td>
+                    <td>@booking.SessionTime.ToString("g")</td>
+                    <td>@booking.BookingDate.ToString("g")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
