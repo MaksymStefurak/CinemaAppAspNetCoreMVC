@@ -16,8 +16,9 @@
             }
             public DbSet<Movie> Movies { get; set; }
             public DbSet<Session> Sessions { get; set; }
+            public DbSet<Booking> Bookings { get; set; }
 
-            protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
                 modelBuilder.ApplyConfigurationsFromAssembly(typeof(CinemaDbContext).Assembly);
                 base.OnModelCreating(modelBuilder);

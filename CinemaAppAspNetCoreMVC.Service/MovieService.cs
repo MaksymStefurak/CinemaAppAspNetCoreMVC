@@ -20,6 +20,10 @@ namespace CinemaAppAspNetCoreMVC.Service
 
         public Task<List<Movie>> GetAllMoviesAsync() => _movieRepository.GetAllAsync();
         public Task<Movie?> GetMovieByIdAsync(int id) => _movieRepository.GetByIdAsync(id);
+        public Task<List<Movie>> SearchMoviesAsync(string query)
+        {
+            return _movieRepository.SearchAsync(query);
+        }
         public Task AddMovieAsync(Movie movie) => _movieRepository.AddAsync(movie);
         public Task UpdateMovieAsync(Movie movie) => _movieRepository.UpdateAsync(movie);
         public Task DeleteMovieAsync(int id) => _movieRepository.DeleteAsync(id);

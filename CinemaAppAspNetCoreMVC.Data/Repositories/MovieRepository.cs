@@ -27,9 +27,17 @@ namespace CinemaAppAspNetCoreMVC.Data.Repositories
         public async Task<Movie?> GetByIdAsync(int id)
         {
             return await _context.Movies.Include(m => m.Sessions)
-                .FirstAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
         }
-
+        public async Task<List<Movie>> SearchAsync(string query)
+        {
+            return await _context.Movies
+                .Where(m => m.Title.Contains(query)
+                         || m.Director.Contains(query)
+                         || m.Genre.ToString().Contains(query))
+                .Include(m => m.Sessions)
+                .ToListAsync();
+        }
         public async Task AddAsync(Movie movie)
         {
             await _context.Movies.AddAsync(movie);
